@@ -1,1 +1,78 @@
-<p>home works!</p>
+<div class="home-container">
+  <h1>Login</h1>
+  <form class="login-form-container" method="post" (submit)="handleLogin()">
+    <mat-form-field class="example-full-width">
+      <mat-label>E-mail</mat-label>
+      <input matInput placeholder="Enter e-mail..." value="" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Enter password..." value="" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Login</button>
+  </form>
+  <div class="registration-link-container">
+    <p>Don't have an account?</p>
+    <a href="">Sign up</a>
+  </div>
+  <div class="search-container">
+    <div class="search-input-container">
+      <label>Search companies</label>
+      <input
+        class="search-input"
+        type="text"
+        (input)="handleSearchValue()"
+        placeholder="Enter company name or location..."
+        [(ngModel)]="searchValue"
+      />
+    </div>
+    <div class="filter-grade-input-container">
+      <label>Filter companies by grade</label>
+      <select
+        class="filter-grade-input"
+        [disabled]="!isFilterShown"
+        [title]="isFilterShown ? '' : 'Type some search...'"
+        [(ngModel)]="filterGradeValue"
+        (change)="handleFilterGradeValue()"
+      >
+        <option>Select by grade</option>
+        <option>0 - 1</option>
+        <option>1 - 2</option>
+        <option>2 - 3</option>
+        <option>3 - 4</option>
+        <option>4 - 5</option>
+      </select>
+    </div>
+  </div>
+  <h2 class="company-title">Companies</h2>
+  <table mat-table [dataSource]="companies" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef>Address</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.address.street }} {{ element.address.number }},
+        {{ element.address.city }}, {{ element.address.country }}
+      </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="averageScore">
+      <th mat-header-cell *matHeaderCellDef>Average score</th>
+      <td mat-cell *matCellDef="let element">{{ element.averageScore }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
