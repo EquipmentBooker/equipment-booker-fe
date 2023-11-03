@@ -1,0 +1,86 @@
+.registration-container {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-color: yellow;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.registration-title {
+    align-self: center;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-color: black;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.registration-left-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    border: solid;
+    border-color: yellow;
+    padding-top: 52px;
+    padding-bottom: 10px;
+}
+
+.registration-right-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    border: solid;
+    border-color: yellow;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.registration-field {
+    width: 70%;
+}
+
+.confirm-password-field {
+    width: 70%;
+    margin-left: 10%;
+}
+
+.confirm-password-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5%;
+    width: 100%;
+    align-self: center;
+}
+
+.textarea-company-info-field {
+    width: 70%;
+    border: solid;
+    border-color: black;
+    padding-left: 1%;
+    padding-right: 1%;
+    height: 90px;
+    font-size: large;
+}
+
+.registration-form-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.register-button {
+    margin-top: 10px;
+}

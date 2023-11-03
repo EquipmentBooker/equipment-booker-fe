@@ -48,6 +48,11 @@ export class HomeComponent implements OnInit {
   }
 
   public handleFilterGradeValue() {
+    if (this.filterGradeValue === 'Select by grade') {
+      this.handleSearchValue();
+      return;
+    }
+
     this.companyService
       .findCompaniesByNameOrLocationAndGrade(
         this.searchValue,

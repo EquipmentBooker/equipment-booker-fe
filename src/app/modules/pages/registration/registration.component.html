@@ -1,0 +1,176 @@
+<div class="registration-container">
+  <h1 class="registration-title">Registration</h1>
+  <form class="registration-form" method="post" (submit)="handleNewUser()">
+    <div class="registration-form-container">
+      <div class="registration-left-container">
+        <mat-form-field class="registration-field">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            placeholder="Enter name..."
+            [(ngModel)]="newRegisteredUser.name"
+            name="name"
+          />
+        </mat-form-field>
+        <mat-form-field class="registration-field">
+          <mat-label>Surname</mat-label>
+          <input
+            matInput
+            placeholder="Enter surname..."
+            [(ngModel)]="newRegisteredUser.surname"
+            name="surname"
+          />
+        </mat-form-field>
+        <mat-form-field class="registration-field">
+          <mat-label>E-mail</mat-label>
+          <input
+            matInput
+            placeholder="Enter e-mail..."
+            [(ngModel)]="newRegisteredUser.email"
+            name="email"
+          />
+        </mat-form-field>
+        <mat-form-field class="registration-field">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            placeholder="Enter password..."
+            [(ngModel)]="newRegisteredUser.password"
+            type="password"
+            name="password"
+          />
+        </mat-form-field>
+        <div class="confirm-password-container">
+          <mat-form-field class="confirm-password-field">
+            <mat-label>Confirm password</mat-label>
+            <input
+              matInput
+              placeholder="Enter password again..."
+              [(ngModel)]="confirmPassword"
+              type="password"
+              name="confirmPassword"
+              (blur)="handleConfirmPassword()"
+            />
+          </mat-form-field>
+          <img
+            src="../../../../assets/images/question.png"
+            alt="question.png"
+            width="20"
+            height="20"
+            [hidden]="isConfirmIconShown || isErrorIconShown"
+            title="Password indicator"
+          />
+          <img
+            src="../../../../assets/images/verified.png"
+            alt="verified.png"
+            width="20"
+            height="20"
+            [hidden]="!isConfirmIconShown || isErrorIconShown"
+            title="Password confirmed"
+          />
+          <img
+            src="../../../../assets/images/remove.png"
+            alt="remove.png"
+            width="20"
+            height="20"
+            [hidden]="isConfirmIconShown || !isErrorIconShown"
+            title="Password doesn't match"
+          />
+        </div>
+        <mat-form-field class="registration-field">
+          <mat-label>Phone number</mat-label>
+          <span matPrefix>+ &nbsp;</span>
+          <input
+            type="tel"
+            matInput
+            placeholder="381 66542-71-60"
+            [(ngModel)]="newRegisteredUser.phoneNumber"
+            name="phoneNumber"
+          />
+        </mat-form-field>
+        <mat-form-field class="registration-field">
+          <mat-label>Profession</mat-label>
+          <input
+            type="tel"
+            matInput
+            placeholder="Enter profession..."
+            [(ngModel)]="newRegisteredUser.profession"
+            name="profession"
+          />
+        </mat-form-field>
+      </div>
+      <div class="registration-right-container">
+        <textarea
+          class="textarea-company-info-field"
+          placeholder="Enter company informations..."
+          [(ngModel)]="newRegisteredUser.companyInfo"
+          name="companyInfo"
+        ></textarea>
+        <mat-form-field class="registration-field">
+          <mat-label>Street</mat-label>
+          <input
+            matInput
+            placeholder="Enter street name..."
+            [(ngModel)]="newRegisteredUser.address.street"
+            name="street"
+          />
+        </mat-form-field>
+        <mat-form-field class="registration-field">
+          <mat-label>Number</mat-label>
+          <input
+            matInput
+            placeholder="Enter street number..."
+            [(ngModel)]="newRegisteredUser.address.number"
+            name="streetNumber"
+          />
+        </mat-form-field>
+        <mat-form-field class="registration-field">
+          <mat-label>City</mat-label>
+          <input
+            matInput
+            placeholder="Enter city..."
+            [(ngModel)]="newRegisteredUser.address.city"
+            name="city"
+          />
+        </mat-form-field>
+        <mat-form-field class="registration-field">
+          <mat-label>Country</mat-label>
+          <input
+            matInput
+            placeholder="Enter country..."
+            [(ngModel)]="newRegisteredUser.address.country"
+            name="country"
+          />
+        </mat-form-field>
+        <mat-form-field class="registration-field">
+          <mat-label>Longitude</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="Enter longitude..."
+            [(ngModel)]="newRegisteredUser.address.longitude"
+            name="longitude"
+          />
+        </mat-form-field>
+        <mat-form-field class="registration-field">
+          <mat-label>Latitude</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="Enter latitude..."
+            [(ngModel)]="newRegisteredUser.address.latitude"
+            name="latitude"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <button
+      class="register-button"
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+      Register
+    </button>
+  </form>
+</div>
