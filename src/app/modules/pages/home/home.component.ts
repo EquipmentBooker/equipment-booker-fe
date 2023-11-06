@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     'name',
     'description',
     'address',
+    'equipment',
     'averageScore',
   ];
 

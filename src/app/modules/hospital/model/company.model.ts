@@ -1,4 +1,5 @@
 import { Address } from './address.model';
+import { Equipment } from './equipment.model';
 
 export class Company {
   id: number = 0;
@@ -6,6 +7,7 @@ export class Company {
   description: string = '';
   averageScore: number = 0;
   address: Address = new Address();
+  equipment: Equipment[] = [];
 
   public constructor(obj?: any) {
     if (obj) {
@@ -14,6 +16,7 @@ export class Company {
       this.description = obj.description;
       this.averageScore = obj.averageScore;
       this.address = obj.address;
+      this.equipment = obj.equipment;
     }
   }
 }
