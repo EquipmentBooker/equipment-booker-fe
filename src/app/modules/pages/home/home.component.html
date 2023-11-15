@@ -3,7 +3,12 @@
   <form class="login-form-container" method="post" (submit)="handleLogin()">
     <mat-form-field class="example-full-width">
       <mat-label>E-mail</mat-label>
-      <input matInput placeholder="Enter e-mail..." value="" />
+      <input
+        matInput
+        placeholder="Enter e-mail..."
+        [(ngModel)]="loginUser.email"
+        name="email"
+      />
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Password</mat-label>
@@ -11,7 +16,8 @@
         matInput
         type="password"
         placeholder="Enter password..."
-        value=""
+        [(ngModel)]="loginUser.password"
+        name="password"
       />
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Login</button>
