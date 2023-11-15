@@ -10,7 +10,7 @@ export class RegisteredUser {
   profession: string = '';
   companyInfo: string = '';
   confirmationToken: string = '';
-  isActivated: boolean = false;
+  activated: boolean = false;
   address: Address = new Address();
 
   public constructor(obj?: any) {

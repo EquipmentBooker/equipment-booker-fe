@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RegisteredUser } from '../../hospital/model/registered-user.model';
 import { RegisteredUserService } from '../../hospital/services/registered-user.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -16,7 +17,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private registeredUserService: RegisteredUserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -40,11 +42,13 @@ export class RegistrationComponent implements OnInit {
             'User created successfully.\n Confirmation link is sent to your e-mail.',
             'Success'
           );
+          this.router.navigate(['/']);
         });
-      return;
+    } else {
+      this.toastr.error('Please, fill in all fields.', 'Error');
     }
 
-    this.toastr.error('Please, fill in all fields.', 'Error');
+    return;
   }
 
   public validateRegistrationForm() {
