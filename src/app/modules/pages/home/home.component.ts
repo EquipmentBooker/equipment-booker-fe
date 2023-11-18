@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { RegisteredUserService } from '../../hospital/services/registered-user.service';
 import { Router } from '@angular/router';
 import { RegisteredUser } from '../../hospital/model/registered-user.model';
+import { CompanyAdministratorService } from '../../hospital/services/company-administrator.service';
+import { CompanyAdministrator } from '../../hospital/model/company-administrator.model';
 
 @Component({
   selector: 'app-home',
@@ -24,13 +26,18 @@ export class HomeComponent implements OnInit {
     'address',
     'equipment',
     'averageScore',
+    'workingTime',
   ];
   public loginUser: LoginUser = new LoginUser();
   public registeredUser: RegisteredUser | null = null;
+  public companyAdministrator: CompanyAdministrator | null = null;
+  public startTime: string = '';
+  public endTime: string = '';
 
   constructor(
     private companyService: CompanyService,
     private registeredUserService: RegisteredUserService,
+    private companyAdministratorService: CompanyAdministratorService,
     private authService: AuthService,
     private toastr: ToastrService,
     private router: Router
@@ -39,7 +46,30 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.companyService.getCompanies().subscribe((res) => {
       this.companies = res;
+      this.convertDate();
     });
+  }
+
+  private convertDate() {
+    for (let company of this.companies) {
+      this.startTime =
+        (Number(company.startTime.toString().split(',')[3]) < 10
+          ? '0' + company.startTime.toString().split(',')[3]
+          : company.startTime.toString().split(',')[3]) +
+        ':' +
+        (Number(company.startTime.toString().split(',')[4]) < 10
+          ? '0' + company.startTime.toString().split(',')[4]
+          : company.startTime.toString().split(',')[4]);
+
+      this.endTime =
+        (Number(company.endTime.toString().split(',')[3]) < 10
+          ? '0' + company.endTime.toString().split(',')[3]
+          : company.endTime.toString().split(',')[3]) +
+        ':' +
+        (Number(company.endTime.toString().split(',')[4]) < 10
+          ? '0' + company.endTime.toString().split(',')[4]
+          : company.endTime.toString().split(',')[4]);
+    }
   }
 
   public handleSearchValue() {
@@ -56,6 +86,7 @@ export class HomeComponent implements OnInit {
         .findCompaniesByNameOrLocation(this.searchValue)
         .subscribe((res) => {
           this.companies = res;
+          this.convertDate();
         });
     } else {
       this.handleFilterGradeValue();
@@ -75,6 +106,7 @@ export class HomeComponent implements OnInit {
       )
       .subscribe((res) => {
         this.companies = res;
+        this.convertDate();
       });
   }
 
@@ -92,6 +124,26 @@ export class HomeComponent implements OnInit {
               if (this.registeredUser && this.registeredUser.activated) {
                 this.toastr.success('User logged successfully.', 'Success');
                 this.router.navigate(['/registered-user']);
+                return;
+              } else {
+                this.toastr.error(
+                  'User logged unsuccessfully - account is not activated.',
+                  'Error'
+                );
+              }
+            });
+
+          this.companyAdministratorService
+            .getCompanyAdministratorByEmail(this.loginUser.email)
+            .subscribe((res) => {
+              this.companyAdministrator = res;
+              console.log(this.companyAdministrator.activated);
+              if (
+                this.companyAdministrator &&
+                this.companyAdministrator.activated
+              ) {
+                this.toastr.success('User logged successfully.', 'Success');
+                this.router.navigate(['/company-administrator']);
                 return;
               } else {
                 this.toastr.error(

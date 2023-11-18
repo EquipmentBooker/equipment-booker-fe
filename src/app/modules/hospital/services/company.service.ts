@@ -20,6 +20,12 @@ export class CompanyService {
     });
   }
 
+  getCompany(id: number): Observable<Company> {
+    return this.http.get<Company>(this.apiHost + 'api/companies/' + id, {
+      headers: this.headers,
+    });
+  }
+
   findCompaniesByNameOrLocation(searchValue: string): Observable<Company[]> {
     return this.http.get<Company[]>(
       this.apiHost +

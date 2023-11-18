@@ -1,0 +1,86 @@
+<div class="details-container">
+  <h1 class="company-title">{{ company.name }}</h1>
+  <div class="details">
+    <div class="left-container">
+      <p>{{ company.description }}</p>
+    </div>
+    <div class="right-container">
+      <h3>Average score: {{ company.averageScore }}</h3>
+      <h3>
+        Address: {{ company.address.street }} {{ company.address.number }},
+        {{ company.address.city }}, {{ company.address.country }}
+      </h3>
+      <h3>Working time: {{ startTime }} - {{ endTime }}</h3>
+    </div>
+  </div>
+  <div class="equipment-and-terms">
+    <div class="equipment" [style.display]="!showTerms ? 'flex' : 'none'">
+      <h2 class="equipment-title">Equipment</h2>
+      <div class="search-input-container">
+        <label>Search equipment</label>
+        <input
+          class="search-input"
+          type="text"
+          (input)="handleSearchValue()"
+          placeholder="Enter equipment name..."
+          [(ngModel)]="searchValue"
+        />
+      </div>
+      <div class="equipment-item" *ngFor="let eq of company.equipment">
+        <h4 class="item-title">{{ eq.name }}</h4>
+        <p class="item-description">{{ eq.description }}</p>
+        <mat-form-field class="select-quantity">
+          <mat-label>Select quantity</mat-label>
+          <mat-select (selectionChange)="handleQuantity(eq, $event)">
+            <mat-option></mat-option>
+            <mat-option
+              *ngFor="let counter of eq.quantityArray"
+              [value]="counter"
+              >{{ counter }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button
+        class="choose-term-button"
+        mat-raised-button
+        color="primary"
+        (click)="handleChooseTerm()"
+        [disabled]="!reservedEquipment.length"
+      >
+        Choose predefined term
+      </button>
+    </div>
+    <div class="terms" [style.display]="showTerms ? 'flex' : 'none'">
+      <h2 class="terms-title">Predefined terms</h2>
+      <div class="term-item" *ngFor="let term of predefinedTerms" key="term.id">
+        <h2 class="term-time">
+          {{ dateTerm }} {{ startTimeTerm }} - {{ endTimeTerm }}
+        </h2>
+        <h4 class="term-detail">Status: {{ term.status }}</h4>
+        <h4 class="term-detail">
+          Company administrator: {{ term.companyAdministrator.name }}
+          {{ term.companyAdministrator.surname }}
+        </h4>
+        <div class="option-buttons">
+          <button
+            class="back-equipment-button"
+            mat-raised-button
+            color="primary"
+            (click)="handleBackEquipment()"
+          >
+            Back to equipment
+          </button>
+          <button
+            class="schedule-button"
+            mat-raised-button
+            color="primary"
+            (click)="handleBackEquipment()"
+          >
+            Schedule
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
