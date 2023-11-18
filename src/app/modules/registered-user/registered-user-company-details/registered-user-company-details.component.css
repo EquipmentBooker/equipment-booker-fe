@@ -1,0 +1,136 @@
+.details-container {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-color: black;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.company-title {
+    align-self: center;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+.right-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
+    padding-left: 15%;
+}
+
+.equipment-and-terms {
+    display: flex;
+    flex-direction: row;
+}
+
+.equipment {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 50%;
+}
+
+.equipment-title {
+    align-self: center;
+}
+
+.equipment-item {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-color: red;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.item-title {
+    align-self: center;
+}
+
+.item-description {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.terms {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 50%;
+}
+
+.select-quantity {
+    align-self: center;
+    width: 50%;
+}
+
+.terms-title {
+    align-self: center;
+}
+
+.choose-term-button {
+    width: 90%;
+    align-self: center;
+}
+
+.search-input-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-self: flex-start;
+    margin-left: 5%;
+}
+
+.search-input {
+    height: 25px;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 85%;
+    border-radius: 20px;
+}
+
+.term-item {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-color: blue;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.term-time {
+    align-self: center;
+}
+
+.term-detail {
+    margin-left: 5%;
+}
+
+.back-equipment-button {
+    width: 40%;
+    align-self: center;  
+}
+
+.schedule-button {
+    width: 40%;
+    align-self: center;
+}
+
+.option-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

@@ -7,6 +7,7 @@ export class Equipment {
   description: string = '';
   quantity: number = 0;
   company: Company = new Company();
+  quantityArray: number[] = [];
 
   public constructor(obj?: any) {
     if (obj) {
@@ -16,6 +17,7 @@ export class Equipment {
       this.description = obj.description;
       this.quantity = obj.quantity;
       this.company = obj.company;
+      this.quantityArray = obj.quantityArray;
     }
   }
 }

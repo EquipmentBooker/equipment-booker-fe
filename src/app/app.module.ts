@@ -8,13 +8,14 @@ import { HospitalModule } from './modules/hospital/hospital.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { RegisteredUserHomeComponent } from './modules/registered-user/registered-user-home/registered-user-home.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { AuthInterceptorService } from './modules/hospital/services/auth-interceptor.service';
+import { CompanyAdministratorHomeComponent } from './modules/company-administrator/company-administrator-home/company-administrator-home.component';
+import { RegisteredUserModule } from './modules/registered-user/registered-user.module';
 
 @NgModule({
-  declarations: [AppComponent, RegisteredUserHomeComponent],
+  declarations: [AppComponent, CompanyAdministratorHomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,6 +24,7 @@ import { AuthInterceptorService } from './modules/hospital/services/auth-interce
     MaterialModule,
     PagesModule,
     HospitalModule,
+    RegisteredUserModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',

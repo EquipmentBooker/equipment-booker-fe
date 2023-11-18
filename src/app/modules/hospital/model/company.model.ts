@@ -6,6 +6,8 @@ export class Company {
   name: string = '';
   description: string = '';
   averageScore: number = 0;
+  startTime: Date = new Date();
+  endTime: Date = new Date();
   address: Address = new Address();
   equipment: Equipment[] = [];
 
