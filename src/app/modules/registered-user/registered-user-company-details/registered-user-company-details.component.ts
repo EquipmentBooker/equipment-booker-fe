@@ -9,6 +9,9 @@ import { RegisteredUserService } from '../../hospital/services/registered-user.s
 import { RegisteredUser } from '../../hospital/model/registered-user.model';
 import { SchedulePredefinedTerm } from '../../dto/schedule-predefined-term';
 import { ToastrService } from 'ngx-toastr';
+import { TermService } from '../../hospital/services/term.service';
+import { Term } from '../../hospital/model/term.model';
+import { ScheduleTerm } from '../../dto/schedule-term';
 
 @Component({
   selector: 'app-registered-user-company-details',
@@ -33,12 +36,15 @@ export class RegisteredUserCompanyDetailsComponent implements OnInit {
   public registeredUser: RegisteredUser = new RegisteredUser();
   public scheduledPredefinedTerm: SchedulePredefinedTerm =
     new SchedulePredefinedTerm();
+  public freeTerms: Term[] = [];
+  public term: ScheduleTerm = new ScheduleTerm();
 
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
     private predefinedTermService: PredefinedTermsService,
     private registeredUserService: RegisteredUserService,
+    private termService: TermService,
     private toastr: ToastrService,
     private router: Router
   ) {}
@@ -103,8 +109,45 @@ export class RegisteredUserCompanyDetailsComponent implements OnInit {
       .subscribe((res) => {
         this.predefinedTerms = res;
         this.convertTermDate();
+        this.termService
+          .getFreeTermsByCompanyId(this.company.id)
+          .subscribe((res) => {
+            this.freeTerms = res;
+            this.convertFreeTermsDate();
+            console.log(this.freeTerms);
+          });
         this.showTerms = true;
       });
+  }
+
+  private convertFreeTermsDate() {
+    for (let term of this.freeTerms) {
+      this.dateTerm =
+        term.startTime.toString().split(',')[2] +
+        '.' +
+        term.startTime.toString().split(',')[1] +
+        '.' +
+        term.startTime.toString().split(',')[0] +
+        '.';
+
+      this.startTimeTerm =
+        (Number(term.startTime.toString().split(',')[3]) < 10
+          ? '0' + term.startTime.toString().split(',')[3]
+          : term.startTime.toString().split(',')[3]) +
+        ':' +
+        (Number(term.startTime.toString().split(',')[4]) < 10
+          ? '0' + term.startTime.toString().split(',')[4]
+          : term.startTime.toString().split(',')[4]);
+
+      this.endTimeTerm =
+        (Number(term.startTime.toString().split(',')[3]) < 10
+          ? '0' + term.startTime.toString().split(',')[3]
+          : term.startTime.toString().split(',')[3]) +
+        ':' +
+        (Number(term.startTime.toString().split(',')[4]) + term.duration < 10
+          ? '0' + term.startTime.toString().split(',')[4]
+          : Number(term.startTime.toString().split(',')[4]) + term.duration);
+    }
   }
 
   private convertTermDate() {
@@ -179,10 +222,46 @@ export class RegisteredUserCompanyDetailsComponent implements OnInit {
       });
   }
 
+  public scheduleTerm(term: Term) {
+    this.registeredUserService
+      .getRegisteredUserByEmail(
+        JSON.parse(sessionStorage.getItem('email') as string)
+      )
+      .subscribe((res) => {
+        this.registeredUser = res;
+        this.term.registeredUserId = this.registeredUser.id;
+        this.term.termId = term.id;
+        this.term.reservedEquipment = this.reservedEquipment;
+        if (this.validate()) {
+          this.termService.scheduleFreeTerm(this.term).subscribe((res) => {
+            this.toastr.success(
+              'Term reserved successfully.\n QR code with term informations is sent to your e-mail.',
+              'Success'
+            );
+            this.router.navigate(['/registered-user/scheduled-terms']);
+          });
+        }
+
+        return;
+      });
+  }
+
   private validateTerm() {
     if (
       this.selectedPredefinedTerm !== new PredefinedTerm() &&
       this.reservedEquipment.length !== 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private validate() {
+    if (
+      this.term.registeredUserId !== 0 &&
+      this.term.termId !== 0 &&
+      this.term.reservedEquipment.length !== 0
     ) {
       return true;
     } else {

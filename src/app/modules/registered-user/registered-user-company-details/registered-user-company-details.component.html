@@ -81,6 +81,34 @@
           </button>
         </div>
       </div>
+      <div class="term-item" *ngFor="let term of freeTerms" key="term.id">
+        <h2 class="term-time">
+          {{ dateTerm }} {{ startTimeTerm }} - {{ endTimeTerm }}
+        </h2>
+        <h4 class="term-detail">Status: {{ term.status }}</h4>
+        <h4 class="term-detail">
+          Company administrator: {{ term.companyAdministrator.name }}
+          {{ term.companyAdministrator.surname }}
+        </h4>
+        <div class="option-buttons">
+          <button
+            class="back-equipment-button"
+            mat-raised-button
+            color="primary"
+            (click)="handleBackEquipment()"
+          >
+            Back to equipment
+          </button>
+          <button
+            class="schedule-button"
+            mat-raised-button
+            color="primary"
+            (click)="scheduleTerm(term)"
+          >
+            Schedule
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

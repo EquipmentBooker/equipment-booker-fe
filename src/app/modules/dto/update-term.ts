@@ -1,19 +1,16 @@
-import { CompanyAdministrator } from './company-administrator.model';
-import { RegisteredUser } from './registered-user.model';
-import { TermEquipment } from './term-equipment.model';
+import { CompanyAdministrator } from '../hospital/model/company-administrator.model';
+import { RegisteredUser } from '../hospital/model/registered-user.model';
+import { TermEquipment } from '../hospital/model/term-equipment.model';
 
-export class Term {
+export class UpdateTerm {
   id: number = 0;
   startTime: Date = new Date();
   duration: number = 0;
   status: string = '';
-  predefined: boolean = false;
+  isPredefined: boolean = false;
   companyAdministrator: CompanyAdministrator = new CompanyAdministrator();
   registeredUser: RegisteredUser = new RegisteredUser();
   termEquipment: TermEquipment[] = [];
-  dateTerm: string = '';
-  startTimeString: string = '';
-  endTimeString: string = '';
 
   public constructor(obj?: any) {
     if (obj) {
@@ -21,13 +18,10 @@ export class Term {
       this.startTime = obj.startTime;
       this.duration = obj.duration;
       this.status = obj.status;
-      this.predefined = obj.predefined;
+      this.isPredefined = obj.isPredefined;
       this.companyAdministrator = obj.companyAdministrator;
       this.registeredUser = obj.registereduser;
       this.termEquipment = obj.termEquipment;
-      this.dateTerm = obj.dateTerm;
-      this.startTimeString = obj.startTimeString;
-      this.endTimeString = obj.endTimeString;
     }
   }
 }
