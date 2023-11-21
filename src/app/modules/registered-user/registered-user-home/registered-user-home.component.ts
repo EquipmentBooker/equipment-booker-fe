@@ -22,7 +22,7 @@ export class RegisteredUserHomeComponent implements OnInit {
   public startTime: string = '';
   public endTime: string = '';
 
-  constructor(private companyService: CompanyService) {}
+  constructor(private companyService: CompanyService, private router: Router) {}
 
   ngOnInit(): void {
     this.companyService.getCompanies().subscribe((res) => {
@@ -33,7 +33,7 @@ export class RegisteredUserHomeComponent implements OnInit {
 
   private convertDate() {
     for (let company of this.companies) {
-      this.startTime =
+      company.startTimeString =
         (Number(company.startTime.toString().split(',')[3]) < 10
           ? '0' + company.startTime.toString().split(',')[3]
           : company.startTime.toString().split(',')[3]) +
@@ -42,7 +42,7 @@ export class RegisteredUserHomeComponent implements OnInit {
           ? '0' + company.startTime.toString().split(',')[4]
           : company.startTime.toString().split(',')[4]);
 
-      this.endTime =
+      company.endTimeString =
         (Number(company.endTime.toString().split(',')[3]) < 10
           ? '0' + company.endTime.toString().split(',')[3]
           : company.endTime.toString().split(',')[3]) +
@@ -64,5 +64,9 @@ export class RegisteredUserHomeComponent implements OnInit {
           this.convertDate();
         });
     }
+  }
+
+  public handleScheduledTermsClick() {
+    this.router.navigate(['/registered-user/scheduled-terms']);
   }
 }

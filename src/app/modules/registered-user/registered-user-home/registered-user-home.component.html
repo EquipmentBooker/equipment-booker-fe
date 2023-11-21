@@ -1,6 +1,11 @@
 <div class="home-container">
   <div class="header-container">
-    <button class="header-button" mat-raised-button color="primary">
+    <button
+      class="header-button"
+      mat-raised-button
+      color="primary"
+      (click)="handleScheduledTermsClick()"
+    >
       Scheduled terms
     </button>
   </div>
@@ -42,7 +47,7 @@
       <ng-container matColumnDef="workingTime">
         <th mat-header-cell *matHeaderCellDef>Working time</th>
         <td mat-cell *matCellDef="let element">
-          {{ startTime }} - {{ endTime }}
+          {{ element.startTimeString }} - {{ element.endTimeString }}
         </td>
       </ng-container>
 

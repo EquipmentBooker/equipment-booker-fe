@@ -6,6 +6,7 @@ import { RegisteredUserHomeComponent } from './modules/registered-user/registere
 import { AuthGuardService } from './modules/hospital/services/auth-guard.service';
 import { CompanyAdministratorHomeComponent } from './modules/company-administrator/company-administrator-home/company-administrator-home.component';
 import { RegisteredUserCompanyDetailsComponent } from './modules/registered-user/registered-user-company-details/registered-user-company-details.component';
+import { RegisteredUserScheduledTermsComponent } from './modules/registered-user/registered-user-scheduled-terms/registered-user-scheduled-terms.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +20,12 @@ const routes: Routes = [
   {
     path: 'registered-user/company/:companyId',
     component: RegisteredUserCompanyDetailsComponent,
+    canActivate: [AuthGuardService],
+    data: { roles: ['ROLE_REGISTERED_USER'] },
+  },
+  {
+    path: 'registered-user/scheduled-terms',
+    component: RegisteredUserScheduledTermsComponent,
     canActivate: [AuthGuardService],
     data: { roles: ['ROLE_REGISTERED_USER'] },
   },

@@ -1,0 +1,19 @@
+<div class="terms-container">
+  <h1 class="scheduled-term-title">Scheduled terms</h1>
+  <div class="term-container" *ngFor="let term of terms">
+    <h2 class="term-time">
+      {{ term.dateTerm }} {{ term.startTimeString }} - {{ term.endTimeString }}
+    </h2>
+    <h3>Status: {{ term.status }}</h3>
+    <h3>
+      Company (administrator): {{ term.companyAdministrator.company.name }} ({{
+        term.companyAdministrator.name
+      }}
+      {{ term.companyAdministrator.surname }})
+    </h3>
+    <h3>Reserved equipment (name - quantity): <br /></h3>
+    <div *ngFor="let equipment of term.termEquipment">
+      <h4>{{ equipment.equipment.name }} - {{ equipment.quantity }} <br /></h4>
+    </div>
+  </div>
+</div>

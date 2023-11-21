@@ -84,3 +84,8 @@
 .register-button {
     margin-top: 10px;
 }
+
+.map {
+    height: 500px;
+    margin-top: 20px;
+}
