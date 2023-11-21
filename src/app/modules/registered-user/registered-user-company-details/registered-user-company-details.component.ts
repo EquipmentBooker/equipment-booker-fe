@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CompanyService } from '../../hospital/services/company.service';
 import { Company } from '../../hospital/model/company.model';
 import { Equipment } from '../../hospital/model/equipment.model';
 import { PredefinedTermsService } from '../../hospital/services/predefined-terms.service';
 import { PredefinedTerm } from '../../hospital/model/predefined-term.model';
+import { RegisteredUserService } from '../../hospital/services/registered-user.service';
+import { RegisteredUser } from '../../hospital/model/registered-user.model';
+import { SchedulePredefinedTerm } from '../../dto/schedule-predefined-term';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registered-user-company-details',
@@ -25,11 +29,18 @@ export class RegisteredUserCompanyDetailsComponent implements OnInit {
   public startTimeTerm: string = '';
   public endTimeTerm: string = '';
   public dateTerm: string = '';
+  public selectedPredefinedTerm: PredefinedTerm = new PredefinedTerm();
+  public registeredUser: RegisteredUser = new RegisteredUser();
+  public scheduledPredefinedTerm: SchedulePredefinedTerm =
+    new SchedulePredefinedTerm();
 
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
-    private predefinedTermService: PredefinedTermsService
+    private predefinedTermService: PredefinedTermsService,
+    private registeredUserService: RegisteredUserService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -138,5 +149,44 @@ export class RegisteredUserCompanyDetailsComponent implements OnInit {
 
   public handleBackEquipment() {
     this.showTerms = false;
+  }
+
+  public schedulePredefinedTerm(term: PredefinedTerm) {
+    this.registeredUserService
+      .getRegisteredUserByEmail(
+        JSON.parse(sessionStorage.getItem('email') as string)
+      )
+      .subscribe((res) => {
+        this.registeredUser = res;
+        this.selectedPredefinedTerm = term;
+        this.scheduledPredefinedTerm.registeredUserId = this.registeredUser.id;
+        this.scheduledPredefinedTerm.reservedEquipment = this.reservedEquipment;
+        this.scheduledPredefinedTerm.predefinedTerm =
+          this.selectedPredefinedTerm;
+        if (this.validateTerm()) {
+          this.predefinedTermService
+            .schedulePredefinedTerm(this.scheduledPredefinedTerm)
+            .subscribe((res) => {
+              this.toastr.success(
+                'Term reserved successfully.\n QR code with term informations is sent to your e-mail.',
+                'Success'
+              );
+              this.router.navigate(['/registered-user/scheduled-terms']);
+            });
+        }
+
+        return;
+      });
+  }
+
+  private validateTerm() {
+    if (
+      this.selectedPredefinedTerm !== new PredefinedTerm() &&
+      this.reservedEquipment.length !== 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

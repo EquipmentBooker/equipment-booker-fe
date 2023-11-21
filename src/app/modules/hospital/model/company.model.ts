@@ -10,6 +10,8 @@ export class Company {
   endTime: Date = new Date();
   address: Address = new Address();
   equipment: Equipment[] = [];
+  startTimeString: string = '';
+  endTimeString: string = '';
 
   public constructor(obj?: any) {
     if (obj) {
@@ -19,6 +21,8 @@ export class Company {
       this.averageScore = obj.averageScore;
       this.address = obj.address;
       this.equipment = obj.equipment;
+      this.startTimeString = obj.startTimeString;
+      this.endTimeString = obj.endTimeString;
     }
   }
 }

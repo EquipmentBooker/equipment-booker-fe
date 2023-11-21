@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
 
   private convertDate() {
     for (let company of this.companies) {
-      this.startTime =
+      company.startTimeString =
         (Number(company.startTime.toString().split(',')[3]) < 10
           ? '0' + company.startTime.toString().split(',')[3]
           : company.startTime.toString().split(',')[3]) +
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
           ? '0' + company.startTime.toString().split(',')[4]
           : company.startTime.toString().split(',')[4]);
 
-      this.endTime =
+      company.endTimeString =
         (Number(company.endTime.toString().split(',')[3]) < 10
           ? '0' + company.endTime.toString().split(',')[3]
           : company.endTime.toString().split(',')[3]) +
@@ -116,42 +116,49 @@ export class HomeComponent implements OnInit {
         const result = await this.authService.loginUser(this.loginUser);
 
         if (result) {
-          this.registeredUserService
-            .getRegisteredUserByEmail(this.loginUser.email)
-            .subscribe((res) => {
-              this.registeredUser = res;
-              console.log(this.registeredUser.activated);
-              if (this.registeredUser && this.registeredUser.activated) {
-                this.toastr.success('User logged successfully.', 'Success');
-                this.router.navigate(['/registered-user']);
-                return;
-              } else {
-                this.toastr.error(
-                  'User logged unsuccessfully - account is not activated.',
-                  'Error'
-                );
-              }
-            });
-
-          this.companyAdministratorService
-            .getCompanyAdministratorByEmail(this.loginUser.email)
-            .subscribe((res) => {
-              this.companyAdministrator = res;
-              console.log(this.companyAdministrator.activated);
-              if (
-                this.companyAdministrator &&
-                this.companyAdministrator.activated
-              ) {
-                this.toastr.success('User logged successfully.', 'Success');
-                this.router.navigate(['/company-administrator']);
-                return;
-              } else {
-                this.toastr.error(
-                  'User logged unsuccessfully - account is not activated.',
-                  'Error'
-                );
-              }
-            });
+          if (
+            JSON.parse(sessionStorage.getItem('authorities') as string)[0]
+              .authority === 'ROLE_REGISTERED_USER'
+          ) {
+            this.registeredUserService
+              .getRegisteredUserByEmail(this.loginUser.email)
+              .subscribe((res) => {
+                this.registeredUser = res;
+                if (this.registeredUser && this.registeredUser.activated) {
+                  this.toastr.success('User logged successfully.', 'Success');
+                  this.router.navigate(['/registered-user']);
+                  return;
+                } else {
+                  this.toastr.error(
+                    'User logged unsuccessfully - account is not activated.',
+                    'Error'
+                  );
+                }
+              });
+          } else if (
+            JSON.parse(sessionStorage.getItem('authorities') as string)[0]
+              .authority === 'ROLE_COMPANY_ADMINISTRATOR'
+          ) {
+            this.companyAdministratorService
+              .getCompanyAdministratorByEmail(this.loginUser.email)
+              .subscribe((res) => {
+                this.companyAdministrator = res;
+                console.log(this.companyAdministrator.activated);
+                if (
+                  this.companyAdministrator &&
+                  this.companyAdministrator.activated
+                ) {
+                  this.toastr.success('User logged successfully.', 'Success');
+                  this.router.navigate(['/company-administrator']);
+                  return;
+                } else {
+                  this.toastr.error(
+                    'User logged unsuccessfully - account is not activated.',
+                    'Error'
+                  );
+                }
+              });
+          }
         } else {
           this.toastr.error(
             'User logged unsuccessfully - bad credentials or account is not activated.',

@@ -1,0 +1,27 @@
+.terms-container {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-color: chocolate;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.term-container {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-color: green;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.term-time {
+    align-self: center;
+}
+
+.scheduled-term-title {
+    align-self: center;
+}
