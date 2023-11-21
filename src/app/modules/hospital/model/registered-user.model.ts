@@ -12,6 +12,7 @@ export class RegisteredUser {
   confirmationToken: string = '';
   activated: boolean = false;
   address: Address = new Address();
+  penalties: number = 0;
 
   public constructor(obj?: any) {
     if (obj) {
@@ -24,6 +25,7 @@ export class RegisteredUser {
       this.profession = obj.profession;
       this.companyInfo = obj.companyInfo;
       this.address = obj.address;
+      this.penalties = obj.penalties;
     }
   }
 }

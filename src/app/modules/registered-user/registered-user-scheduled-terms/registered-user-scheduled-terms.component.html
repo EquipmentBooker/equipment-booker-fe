@@ -15,5 +15,13 @@
     <div *ngFor="let equipment of term.termEquipment">
       <h4>{{ equipment.equipment.name }} - {{ equipment.quantity }} <br /></h4>
     </div>
+    <button
+      class="cancel-term-button"
+      mat-raised-button
+      color="warn"
+      (click)="cancelScheduledTerm(term)"
+    >
+      Cancel term
+    </button>
   </div>
 </div>

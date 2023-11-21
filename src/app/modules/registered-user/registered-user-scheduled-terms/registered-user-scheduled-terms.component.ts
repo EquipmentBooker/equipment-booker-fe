@@ -3,6 +3,10 @@ import { TermService } from '../../hospital/services/term.service';
 import { RegisteredUserService } from '../../hospital/services/registered-user.service';
 import { RegisteredUser } from '../../hospital/model/registered-user.model';
 import { Term } from '../../hospital/model/term.model';
+import { UpdateTerm } from '../../dto/update-term';
+import { CompanyAdministrator } from '../../hospital/model/company-administrator.model';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registered-user-scheduled-terms',
@@ -15,10 +19,13 @@ export class RegisteredUserScheduledTermsComponent implements OnInit {
   public startTimeTerm: string = '';
   public endTimeTerm: string = '';
   public dateTerm: string = '';
+  public updateTerm: UpdateTerm = new UpdateTerm();
 
   constructor(
     private termService: TermService,
-    private registeredUserService: RegisteredUserService
+    private registeredUserService: RegisteredUserService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +71,42 @@ export class RegisteredUserScheduledTermsComponent implements OnInit {
         (Number(term.startTime.toString().split(',')[4]) + term.duration < 10
           ? '0' + term.startTime.toString().split(',')[4]
           : Number(term.startTime.toString().split(',')[4]) + term.duration);
+    }
+  }
+
+  public cancelScheduledTerm(term: Term) {
+    this.updateTerm.id = term.id;
+    this.updateTerm.duration = term.duration;
+    this.updateTerm.isPredefined = term.predefined;
+    this.updateTerm.registeredUser = term.registeredUser;
+    this.updateTerm.startTime = term.startTime;
+    this.updateTerm.status = 'FREE';
+    this.updateTerm.termEquipment = term.termEquipment;
+    this.updateTerm.companyAdministrator = term.companyAdministrator;
+    if (this.validateTerm()) {
+      this.termService.cancelScheduledTerm(this.updateTerm).subscribe((res) => {
+        this.toastr.success(
+          `Term canceled successfully.\n You have ${res.registeredUser.penalties} penalties.`,
+          'Success'
+        );
+        this.router.navigate(['/registered-user']);
+      });
+    }
+
+    return;
+  }
+
+  private validateTerm() {
+    if (
+      this.updateTerm.duration !== 0 &&
+      this.updateTerm.startTime !== new Date() &&
+      this.updateTerm.companyAdministrator !== new CompanyAdministrator() &&
+      this.updateTerm.registeredUser !== new RegisteredUser() &&
+      this.updateTerm.termEquipment.length !== 0
+    ) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
