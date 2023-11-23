@@ -1,0 +1,40 @@
+<div class="companies-container">
+  <h1>Companies for which you can write appeal</h1>
+  <div
+    class="company-container"
+    *ngFor="let company of companies"
+    (click)="selectCompany(company)"
+  >
+    <h2 class="company-title">{{ company.name }}</h2>
+    <p>{{ company.description }}</p>
+    <p>
+      Working time: {{ company.startTimeString }} - {{ company.endTimeString }}
+    </p>
+    <p>
+      Address: {{ company.address.street }} {{ company.address.number }},
+      {{ company.address.city }}, {{ company.address.country }}
+    </p>
+    <p>Average score: {{ company.averageScore }}</p>
+    <p>Equipment (name - quantity):</p>
+    <div class="equipment-container">
+      <div *ngFor="let equipment of company.equipment">
+        {{ equipment.name }} ({{ equipment.quantity }}),&nbsp;
+      </div>
+    </div>
+    <div *ngIf="selectedCompany">
+      <textarea
+        class="appeal-container"
+        placeholder="Enter appeal..."
+        [(ngModel)]="companyAppeal.content"
+      ></textarea>
+      <button
+        class="appeal-button"
+        mat-raised-button
+        color="primary"
+        (click)="createAppeal(company)"
+      >
+        File appeal
+      </button>
+    </div>
+  </div>
+</div>

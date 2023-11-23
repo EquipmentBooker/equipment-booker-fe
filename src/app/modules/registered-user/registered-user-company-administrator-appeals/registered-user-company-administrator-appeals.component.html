@@ -1,0 +1,36 @@
+<div class="company-administrators-container">
+  <h1>Company administrators for which you can write appeal</h1>
+  <div
+    class="company-administrator-container"
+    *ngFor="let companyAdministrator of companyAdministrators"
+    (click)="selectCompanyAdministrator(companyAdministrator)"
+  >
+    <h2 class="company-administrator-title">
+      {{ companyAdministrator.name }} {{ companyAdministrator.surname }}
+    </h2>
+    <p>Company name: {{ companyAdministrator.company.name }}</p>
+    <p>Phone number: {{ companyAdministrator.phoneNumber }}</p>
+    <p>E-mail: {{ companyAdministrator.email }}</p>
+    <p>
+      Address: {{ companyAdministrator.address.street }}
+      {{ companyAdministrator.address.number }},
+      {{ companyAdministrator.address.city }},
+      {{ companyAdministrator.address.country }}
+    </p>
+    <div *ngIf="selectedCompanyAdministrator">
+      <textarea
+        class="appeal-container"
+        placeholder="Enter appeal..."
+        [(ngModel)]="companyAdministratorAppeal.content"
+      ></textarea>
+      <button
+        class="appeal-button"
+        mat-raised-button
+        color="primary"
+        (click)="createAppeal(companyAdministrator)"
+      >
+        File appeal
+      </button>
+    </div>
+  </div>
+</div>

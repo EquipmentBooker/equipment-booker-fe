@@ -1,0 +1,41 @@
+<div class="appeals-container">
+  <h1>Company appeals</h1>
+  <div class="appeal-container" *ngFor="let appeal of companyAppeals">
+    <p>
+      {{ appeal.registeredUser.name }}
+      {{ appeal.registeredUser.surname }} appeal to
+      {{ appeal.company.name }}
+    </p>
+    <div class="appeal-content">{{ appeal.content }}</div>
+    <div
+      class="appeal-answer"
+      *ngIf="appeal.answer !== '' && isShownButton === false"
+    >
+      {{ appeal.answer }}
+    </div>
+    <textarea
+      class="appeal-answer-empty"
+      *ngIf="isShownButton === true"
+      placeholder="Enter answer..."
+      [(ngModel)]="appeal.answer"
+    ></textarea>
+    <button
+      class="answer-button"
+      mat-raised-button
+      color="primary"
+      (click)="handleAnswerToAppealClick()"
+      *ngIf="appeal.answer === '' && isShownButton === false"
+    >
+      Answer to appeal
+    </button>
+    <button
+      class="answer-button"
+      mat-raised-button
+      color="primary"
+      (click)="handleAnswerClick(appeal)"
+      *ngIf="isShownButton === true"
+    >
+      Answer
+    </button>
+  </div>
+</div>

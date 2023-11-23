@@ -1,0 +1,49 @@
+.companY-administrators-container {
+    border: solid;
+    border-color: burlywood;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.company-administrator-container {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-color: crimson;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 5px;
+}
+
+.company-administrator-container:hover {
+    cursor: pointer;
+}
+
+.company-administrator-title {
+    align-self: center;
+}
+
+.equipment-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.appeal-container {
+    border: solid;
+    border-color: yellow;
+    width: 70%;
+    height: 150px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-left: 1%;
+    padding-top: 5px;
+    font-size: large;
+}
+
+.appeal-button {
+    width: 72%;
+}
