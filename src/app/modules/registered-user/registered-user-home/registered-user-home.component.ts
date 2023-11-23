@@ -69,4 +69,12 @@ export class RegisteredUserHomeComponent implements OnInit {
   public handleScheduledTermsClick() {
     this.router.navigate(['/registered-user/scheduled-terms']);
   }
+
+  public handleCompanyAppealClick() {
+    this.router.navigate(['/registered-user/company-appeal']);
+  }
+
+  public handleCompanyAdministratorAppealClick() {
+    this.router.navigate(['/registered-user/company-administrator-appeal']);
+  }
 }

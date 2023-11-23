@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { RegisteredUser } from '../../hospital/model/registered-user.model';
 import { CompanyAdministratorService } from '../../hospital/services/company-administrator.service';
 import { CompanyAdministrator } from '../../hospital/model/company-administrator.model';
+import { SystemAdministratorService } from '../../hospital/services/system-administrator.service';
+import { SystemAdministrator } from '../../hospital/model/system-administrator.model';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +33,7 @@ export class HomeComponent implements OnInit {
   public loginUser: LoginUser = new LoginUser();
   public registeredUser: RegisteredUser | null = null;
   public companyAdministrator: CompanyAdministrator | null = null;
+  public systemAdministrator: SystemAdministrator | null = null;
   public startTime: string = '';
   public endTime: string = '';
 
@@ -38,6 +41,7 @@ export class HomeComponent implements OnInit {
     private companyService: CompanyService,
     private registeredUserService: RegisteredUserService,
     private companyAdministratorService: CompanyAdministratorService,
+    private systemAdministratorService: SystemAdministratorService,
     private authService: AuthService,
     private toastr: ToastrService,
     private router: Router
@@ -143,13 +147,31 @@ export class HomeComponent implements OnInit {
               .getCompanyAdministratorByEmail(this.loginUser.email)
               .subscribe((res) => {
                 this.companyAdministrator = res;
-                console.log(this.companyAdministrator.activated);
                 if (
                   this.companyAdministrator &&
                   this.companyAdministrator.activated
                 ) {
                   this.toastr.success('User logged successfully.', 'Success');
                   this.router.navigate(['/company-administrator']);
+                  return;
+                } else {
+                  this.toastr.error(
+                    'User logged unsuccessfully - account is not activated.',
+                    'Error'
+                  );
+                }
+              });
+          } else {
+            this.systemAdministratorService
+              .getSystemAdministratorByEmail(this.loginUser.email)
+              .subscribe((res) => {
+                this.systemAdministrator = res;
+                if (
+                  this.systemAdministrator &&
+                  this.systemAdministrator.activated
+                ) {
+                  this.toastr.success('User logged successfully.', 'Success');
+                  this.router.navigate(['/system-administrator']);
                   return;
                 } else {
                   this.toastr.error(

@@ -18,6 +18,12 @@
 .header-button {
     height: 40px;
     width: 10%;
+    margin-right: 2%;
+}
+
+.header-button-specific {
+    height: 40px;
+    margin-right: 2%;
 }
 
 .companies-container {

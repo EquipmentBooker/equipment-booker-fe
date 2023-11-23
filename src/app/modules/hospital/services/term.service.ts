@@ -55,4 +55,17 @@ export class TermService {
       }
     );
   }
+
+  getPastScheduledTermsByRegisteredUserId(
+    registeredUserId: number
+  ): Observable<Term[]> {
+    return this.http.get<Term[]>(
+      this.apiHost +
+        'api/terms/past-scheduled/registered-user/' +
+        registeredUserId,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 }
