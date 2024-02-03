@@ -77,4 +77,8 @@ export class RegisteredUserHomeComponent implements OnInit {
   public handleCompanyAdministratorAppealClick() {
     this.router.navigate(['/registered-user/company-administrator-appeal']);
   }
+
+  public handleAppealAnswersClick() {
+    this.router.navigate(['/registered-user/appeal-answers']);
+  }
 }

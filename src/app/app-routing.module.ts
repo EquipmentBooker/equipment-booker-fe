@@ -12,10 +12,13 @@ import { CompanyAdministratorHomeComponent } from './modules/company-administrat
 import { SystemAdministratorAppealsComponent } from './modules/system-administrator/system-administrator-appeals/system-administrator-appeals.component';
 import { RegisteredUserCompanyAdministratorAppealsComponent } from './modules/registered-user/registered-user-company-administrator-appeals/registered-user-company-administrator-appeals.component';
 import { SystemAdministratorCompanyAdministratorAppealsComponent } from './modules/system-administrator/system-administrator-company-administrator-appeals/system-administrator-company-administrator-appeals.component';
+import { DeliveryMapComponent } from './modules/pages/delivery-map/delivery-map.component';
+import { RegisteredUserAppealAnswersComponent } from './modules/registered-user/registered-user-appeal-answers/registered-user-appeal-answers.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'delivery', component: DeliveryMapComponent },
   {
     path: 'registered-user',
     component: RegisteredUserHomeComponent,
@@ -69,6 +72,12 @@ const routes: Routes = [
     component: SystemAdministratorCompanyAdministratorAppealsComponent,
     canActivate: [AuthGuardService],
     data: { roles: ['ROLE_SYSTEM_ADMINISTRATOR'] },
+  },
+  {
+    path: 'registered-user/appeal-answers',
+    component: RegisteredUserAppealAnswersComponent,
+    canActivate: [AuthGuardService],
+    data: { roles: ['ROLE_REGISTERED_USER'] },
   },
 ];
 

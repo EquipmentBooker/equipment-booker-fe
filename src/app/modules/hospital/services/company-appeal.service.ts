@@ -35,4 +35,13 @@ export class CompanyAppealService {
       }
     );
   }
+
+  getAppealAnswers(registeredUserId: number): Observable<CompanyAppeal[]> {
+    return this.http.get<CompanyAppeal[]>(
+      this.apiHost + 'api/appeals/registeredUser/' + registeredUserId,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 }

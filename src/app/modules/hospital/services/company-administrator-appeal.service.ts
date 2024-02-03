@@ -45,4 +45,17 @@ export class CompanyAdministratorAppealService {
       }
     );
   }
+
+  getAppealAnswers(
+    registeredUserId: number
+  ): Observable<CompanyAdministratorAppeal[]> {
+    return this.http.get<CompanyAdministratorAppeal[]>(
+      this.apiHost +
+        'api/company_administrator_appeals/registeredUser/' +
+        registeredUserId,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 }

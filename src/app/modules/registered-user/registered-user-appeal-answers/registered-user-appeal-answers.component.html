@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Answers to my appeals</h2>
+  <div class="appeal-container" *ngFor="let appeal of companyAppeals">
+    <p>
+      Appeal to
+      {{ appeal.company.name }}
+    </p>
+    <div class="appeal-content">{{ appeal.content }}</div>
+    <div class="appeal-answer" *ngIf="appeal.answer !== ''">
+      {{ appeal.answer }}
+    </div>
+  </div>
+  <div
+    class="appeal-container"
+    *ngFor="let appeal of companyAdministratorAppeals"
+  >
+    <p>
+      Appeal to
+      {{ appeal.companyAdministrator.name }}
+      {{ appeal.companyAdministrator.surname }}
+    </p>
+    <div class="appeal-content">{{ appeal.content }}</div>
+    <div class="appeal-answer" *ngIf="appeal.answer !== ''">
+      {{ appeal.answer }}
+    </div>
+  </div>
+</div>
